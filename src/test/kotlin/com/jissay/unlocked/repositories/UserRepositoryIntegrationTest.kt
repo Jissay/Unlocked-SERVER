@@ -30,6 +30,17 @@ class UserRepositoryIntegrationTest
         this.assertUsersAreEquals(userSaved, userFound)
     }
 
+    @Test
+    fun whenFindByUsername_thenReturnUser()
+    {
+        // given
+        val userSaved = this.createUser()
+        // when
+        val userFound = this.userRepository.findByUsername(userSaved.username)
+        // then
+        this.assertUsersAreEquals(userSaved, userFound)
+    }
+
     //region Assertions
 
     fun assertUsersAreEquals(user1: User, user2: User?)
@@ -37,7 +48,7 @@ class UserRepositoryIntegrationTest
         assertThat(user1.id).isEqualTo(user2?.id)
         assertThat(user1.email).isEqualTo(user2?.email)
         assertThat(user1.password).isEqualTo(user2?.password)
-        assertThat(user1.name).isEqualTo(user2?.name)
+        assertThat(user1.username).isEqualTo(user2?.username)
     }
 
     //endregion

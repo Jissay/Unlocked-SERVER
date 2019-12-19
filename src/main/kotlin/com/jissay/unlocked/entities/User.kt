@@ -13,8 +13,8 @@ class User
     @Column(nullable = false)
     var password: String,
 
-    @Column(nullable = false)
-    var name: String,
+    @Column(nullable = false, unique = true)
+    var username: String,
 
     @Column(nullable = false)
     val created: Date = Date()
