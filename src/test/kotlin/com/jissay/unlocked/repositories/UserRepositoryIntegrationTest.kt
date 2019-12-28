@@ -36,7 +36,7 @@ class UserRepositoryIntegrationTest
         // given
         val userSaved = this.createUser()
         // when
-        val userFound = this.userRepository.findByUsername(userSaved.username)
+        val userFound = this.userRepository.findByAccountName(userSaved.username)
         // then
         this.assertUsersAreEquals(userSaved, userFound)
     }
@@ -57,9 +57,11 @@ class UserRepositoryIntegrationTest
 
     fun createUser(): User
     {
-        var user = User("henlo.fren@dog.go", "fren", "Henlo")
-        this.testEntityManager.persistAndFlush(user);
-        return user
+        var user = User()
+        user.email = "henlo.fren@dog.go"
+        user.password = "fren"
+        user.username = "Henlo"
+        return this.testEntityManager.persistAndFlush(user);
     }
 
     //endregion

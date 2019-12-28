@@ -1,27 +1,12 @@
 package com.jissay.unlocked.entities
 
-import org.hibernate.annotations.GenericGenerator
 import java.util.*
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.Entity
 
 @Entity
-class User
-(
-    @Column(nullable = false, unique = true)
-    var email: String,
-
-    @Column(nullable = false)
-    var password: String,
-
-    @Column(nullable = false, unique = true)
-    var username: String,
-
+class User: ConnectableUser()
+{
     @Column(nullable = false)
     val created: Date = Date()
-)
-{
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    var id: String? = null
 }
