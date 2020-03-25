@@ -15,6 +15,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 
+// see https://stackoverflow.com/questions/23086932/cannot-instantiate-injectmocks-field-named-exception-with-java-class/23087583
+// https://medium.com/@crsandeep/creating-and-testing-a-kotlin-restful-web-services-using-spring-boot-1a11aeda279e
 @RunWith(MockitoJUnitRunner::class)
 @DataJpaTest
 class UserAuthenticationDetailsServiceTest
