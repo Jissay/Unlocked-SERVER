@@ -3,10 +3,13 @@ package com.jissay.unlocked.repositories
 import com.jissay.unlocked.entities.User
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.assertThrows
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
@@ -18,6 +21,8 @@ class UserRepositoryIntegrationTest
 
     @Autowired
     private lateinit var testEntityManager: TestEntityManager
+
+    //region Tests
 
     @Test
     fun whenFindByEmail_thenReturnUser()
@@ -40,6 +45,8 @@ class UserRepositoryIntegrationTest
         // then
         this.assertUsersAreEquals(userSaved, userFound)
     }
+
+    //endregion
 
     //region Assertions
 

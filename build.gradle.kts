@@ -31,7 +31,7 @@ dependencies {
 
 	/* Spring dependencies */
 	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.security:spring-security-oauth2-core")
+	implementation("org.springframework.security.oauth:spring-security-oauth2:2.2.2.RELEASE")
 
 	/* Database libraries */
 	implementation("org.postgresql:postgresql")
