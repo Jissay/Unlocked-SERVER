@@ -1,0 +1,16 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/unlocked
+        username: postgres
+        password: postgres
+
+        initialization-mode: always
+        driverClassName: org.postgresql.Driver
+
+    jpa:
+      database: POSTGRESQL
+      hibernate:
+        ddl-auto: create-drop
+
+    devtools:
+      add-properties: true

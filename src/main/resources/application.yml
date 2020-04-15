@@ -1,0 +1,25 @@
+# SET ACTIVE PROFILES
+# --spring.profiles.active=<PROFILE_NAME> in edit configurations
+spring:
+    datasource:
+      # COMPLETE THIS FOR PROD SETTINGS
+        #url: jdbc:postgresql://localhost:5432/unlocked
+        #username: postgres
+        #password: postgres
+
+        initialization-mode: always
+        driverClassName: org.postgresql.Driver
+        platform: postgresql
+
+    jpa:
+      database: POSTGRESQL
+      hibernate:
+        ddl-auto: create-drop
+        naming:
+          strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQL10Dialect
+
+    devtools:
+      add-properties: false

@@ -6,10 +6,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
-open class PasswordEncoderAndMatcherConfig
+class PasswordEncoderAndMatcherConfig
 {
     @Bean
-    open fun passwordEncoderAndMatcher(): PasswordEncoder
+    fun passwordEncoderAndMatcher(): PasswordEncoder
     {
         return object : PasswordEncoder
         {

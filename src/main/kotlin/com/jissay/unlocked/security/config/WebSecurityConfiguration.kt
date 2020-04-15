@@ -1,6 +1,7 @@
 package com.jissay.unlocked.security.config
 
-import com.jissay.unlocked.services.UserAuthenticationDetailsService
+
+import com.jissay.unlocked.services.AccountService
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -8,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @EnableWebSecurity
-class WebSecurityConfiguration(private val userAuthenticationDetailsService: UserAuthenticationDetailsService,
+class WebSecurityConfiguration(private val accountService: AccountService,
                                private val passwordEncoder: PasswordEncoder)
     : WebSecurityConfigurerAdapter()
 {
@@ -24,7 +25,7 @@ class WebSecurityConfiguration(private val userAuthenticationDetailsService: Use
 
     override fun configure(auth: AuthenticationManagerBuilder)
     {
-        auth.userDetailsService(this.userAuthenticationDetailsService)
+        auth.userDetailsService(this.accountService)
                 .passwordEncoder(this.passwordEncoder)
     }
 }

@@ -1,7 +1,7 @@
 package com.jissay.unlocked.services
 
-import com.jissay.unlocked.entities.User
-import com.jissay.unlocked.repositories.UserRepository
+import com.jissay.unlocked.entities.AccountTestTools
+import com.jissay.unlocked.repositories.AccountRepository
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.assertThrows
@@ -10,9 +10,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 
 // see https://stackoverflow.com/questions/23086932/cannot-instantiate-injectmocks-field-named-exception-with-java-class/23087583
@@ -22,13 +20,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 class UserAuthenticationDetailsServiceTest
 {
     @InjectMocks
-    private lateinit var userAuthenticationDetailsService: UserAuthenticationDetailsService
+    private lateinit var accountService: AccountService
 
     @Mock
-    private lateinit var userRepository: UserRepository // Dependency for UserAuthenticationDetailsService
-
-    @Autowired
-    private lateinit var testEntityManager: TestEntityManager
+    private lateinit var userRepository: AccountRepository // Dependency for AccountService
 
     @Before
     fun init() { MockitoAnnotations.initMocks(this) }
@@ -36,25 +31,12 @@ class UserAuthenticationDetailsServiceTest
     //region Tests
 
     @Test
-    fun whenFindByUsername_thenThrowUserNotFound()
+    fun `username should not be found`()
     {
         // given
         val fakeUsername = "FakeUserName"
         // when, then
-        assertThrows<UsernameNotFoundException> { this.userAuthenticationDetailsService.loadUserByUsername(fakeUsername) }
-    }
-
-    //endregion
-
-    //region Convenience tools
-
-    fun createUser(): User
-    {
-        var user = User()
-        user.email = "henlo.fren@dog.go"
-        user.password = "fren"
-        user.username = "Henlo"
-        return this.testEntityManager.persistAndFlush(user);
+        assertThrows<UsernameNotFoundException> { this.accountService.loadUserByUsername(fakeUsername) }
     }
 
     //endregion

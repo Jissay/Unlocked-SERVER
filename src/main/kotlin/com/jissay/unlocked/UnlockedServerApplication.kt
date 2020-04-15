@@ -6,7 +6,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
 
 @SpringBootApplication
-class UnlockedServerApplication
+open class UnlockedServerApplication
 
 fun main(args: Array<String>) {
 	runApplication<UnlockedServerApplication>(*args)
