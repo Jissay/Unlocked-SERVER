@@ -24,6 +24,7 @@ repositories { mavenCentral() }
 dependencies {
 
 	val junitVersion = "5.2.0"
+	val jwtVersion = "0.9.1"
 
 	/* Spring standard libraries */
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -34,6 +35,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.security.oauth:spring-security-oauth2:2.4.0.RELEASE")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+	/* JWT Dependencies */
+	implementation("org.springframework.security:spring-security-jwt:1.1.0.RELEASE")
+	implementation("io.jsonwebtoken:jjwt:$jwtVersion")
 
 	/* Database libraries */
 	implementation("org.postgresql:postgresql")

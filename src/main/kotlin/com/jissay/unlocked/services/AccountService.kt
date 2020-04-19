@@ -1,5 +1,6 @@
 package com.jissay.unlocked.services
 
+import com.jissay.unlocked.entities.Account
 import com.jissay.unlocked.repositories.AccountRepository
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
@@ -13,18 +14,10 @@ import org.springframework.stereotype.Service
 class AccountService(private val accountRepository: AccountRepository) : UserDetailsService
 {
     @Throws(UsernameNotFoundException::class)
-    override fun loadUserByUsername(username: String): UserDetails
+    override fun loadUserByUsername(username: String): Account
     {
-        val account = accountRepository.findByUsername(username)
+        return accountRepository.findByUsername(username)
                 ?: throw UsernameNotFoundException("Could not find account with username $username!")
-
-        return with(account)
-        {
-            User.withUsername(username)
-                    .password(password)
-                    .authorities("USER")
-                    .build()
-        }
     }
 
 

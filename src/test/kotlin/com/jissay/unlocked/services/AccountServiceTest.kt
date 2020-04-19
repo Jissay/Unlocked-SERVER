@@ -17,13 +17,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 // https://medium.com/@crsandeep/creating-and-testing-a-kotlin-restful-web-services-using-spring-boot-1a11aeda279e
 @RunWith(MockitoJUnitRunner::class)
 @DataJpaTest
-class UserAuthenticationDetailsServiceTest
+class AccountServiceTest
 {
     @InjectMocks
     private lateinit var accountService: AccountService
 
     @Mock
-    private lateinit var userRepository: AccountRepository // Dependency for AccountService
+    private lateinit var accountRepository: AccountRepository // Dependency for AccountService
 
     @Before
     fun init() { MockitoAnnotations.initMocks(this) }
