@@ -61,6 +61,10 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+
+	reports.junitXml.isEnabled = true
+	reports.junitXml.destination = File(name)
+
 	systemProperty("spring.profiles.active", "test")
 }
 
