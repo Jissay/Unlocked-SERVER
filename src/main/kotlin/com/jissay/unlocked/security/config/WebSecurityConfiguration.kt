@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.AuthenticationProvider
+import org.springframework.security.authentication.ProviderManager
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -15,8 +18,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import java.util.*
 
 
 @Configuration
@@ -29,7 +34,8 @@ class WebSecurityConfiguration(private val accountService: AccountService,
 {
     @Autowired
     fun configureGlobal(auth: AuthenticationManagerBuilder)
-    { // configure AuthenticationManager so that it knows from where to load
+    {
+        // configure AuthenticationManager so that it knows from where to load
         // user for matching credentials
         // Use BCryptPasswordEncoder
         auth.userDetailsService<UserDetailsService>(this.accountService)
@@ -37,13 +43,7 @@ class WebSecurityConfiguration(private val accountService: AccountService,
     }
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder? { return BCryptPasswordEncoder() }
-
-    @Bean
-    override fun authenticationManagerBean(): AuthenticationManager?
-    {
-        return super.authenticationManagerBean()
-    }
+    fun passwordEncoder(): PasswordEncoder? { return BCryptPasswordEncoder(10) }
 
     override fun configure(httpSecurity: HttpSecurity)
     {
@@ -60,5 +60,22 @@ class WebSecurityConfiguration(private val accountService: AccountService,
 
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter::class.java)
+    }
+
+    @Bean
+    fun accountAuthenticationManager(): AuthenticationManager?
+    {
+        val providers: MutableList<AuthenticationProvider> = ArrayList()
+        providers.add(this.authenticationProvider())
+        return ProviderManager(providers)
+    }
+
+    @Bean
+    fun authenticationProvider(): AuthenticationProvider
+    {
+        val authenticationProvider = DaoAuthenticationProvider()
+        authenticationProvider.setUserDetailsService(this.accountService)
+        authenticationProvider.setPasswordEncoder(this.passwordEncoder())
+        return authenticationProvider
     }
 }

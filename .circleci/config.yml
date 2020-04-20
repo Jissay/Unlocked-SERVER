@@ -40,3 +40,7 @@ jobs:
 
       # run tests!
       - run: gradle cleanTest test
+
+      # store tests results
+      - store_test_results:
+          path: test-results

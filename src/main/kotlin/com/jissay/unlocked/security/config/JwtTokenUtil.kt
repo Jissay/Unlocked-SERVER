@@ -1,4 +1,4 @@
-package com.jissay.unlocked.security.oauth
+package com.jissay.unlocked.security.config
 
 import com.jissay.unlocked.security.config.ULProperties
 import io.jsonwebtoken.Claims

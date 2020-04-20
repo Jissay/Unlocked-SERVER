@@ -1,6 +1,6 @@
 package com.jissay.unlocked.security.config.filters
 
-import com.jissay.unlocked.security.oauth.JwtTokenUtil
+import com.jissay.unlocked.security.config.JwtTokenUtil
 import com.jissay.unlocked.services.AccountService
 import io.jsonwebtoken.ExpiredJwtException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletResponse
 /* see https://medium.com/swlh/spring-boot-security-jwt-hello-world-example-b479e457664c */
 @Component
 class JwtRequestFilter(val accountService: AccountService,
-                       val jwtTokenUtil: JwtTokenUtil)
+                       val jwtTokenUtil: JwtTokenUtil
+)
     : OncePerRequestFilter()
 {
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain)
