@@ -65,7 +65,7 @@ jobs:
             at: .
         - run:
             name: Lint code
-            command: gradle ktlintCheck
+            command: gradle check
 
         # Store lint results
         - store_artifacts:
@@ -73,7 +73,7 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  build_test_lint:
     jobs:
       - build
       - test:
