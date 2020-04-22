@@ -33,10 +33,9 @@ jobs:
             - v1-dependencies-{{ checksum "build.gradle.kts" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      - run: gradle build
-
-      - persist_to_workspace:
-          root: ./
+      - run:
+          name: Build project
+          command: gradle build
 
   test:
       working_directory: ~/JISSAY_REP
@@ -51,10 +50,17 @@ jobs:
       steps:
         - attach_workspace:
             at: .
-        - run: gradle dependencies
+
+        - checkout:
+            path: ~/JISSAY_REP/
+        - run:
+            name: Load gradle dependencies
+            command: gradle dependencies
 
         # run tests!
-        - run: gradle cleanTest test
+        - run:
+            name: Run tests
+            command: gradle cleanTest test
 
         # store tests results
         - store_test_results:
@@ -68,6 +74,10 @@ jobs:
       steps:
         - attach_workspace:
             at: .
+
+        - checkout:
+            path: ~/JISSAY_REP/
+
         - run:
             name: Lint code
             command: gradle check
