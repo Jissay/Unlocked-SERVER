@@ -80,3 +80,5 @@ workflows:
           requires:
             - build
       - lint
+          requires:
+            - build
