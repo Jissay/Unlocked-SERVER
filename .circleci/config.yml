@@ -35,7 +35,11 @@ jobs:
             - v1-dependencies-
       - run: gradle build
 
+      - persist_to_workspace:
+          ~/JISSAY_REP/
+
   test:
+      working_directory: ~/JISSAY_REP
       environment:
         # Customize the JVM maximum heap limit
         JVM_OPTS: -Xmx3200m
@@ -57,6 +61,7 @@ jobs:
             path: build/reports/test
 
   lint:
+      working_directory: ~/JISSAY_REP
       docker:
         - image: circleci/openjdk:8-jdk
 
