@@ -36,7 +36,7 @@ jobs:
       - run: gradle build
 
       - persist_to_workspace:
-          root: ~/JISSAY_REP/
+          root: ./
 
   test:
       working_directory: ~/JISSAY_REP
