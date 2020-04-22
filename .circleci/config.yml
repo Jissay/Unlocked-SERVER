@@ -83,7 +83,7 @@ jobs:
             command: gradle check
 
         # Store lint results
-        - store_artifacts:
+        - store_test_results:
             path: build/reports/ktlint
 
 workflows:

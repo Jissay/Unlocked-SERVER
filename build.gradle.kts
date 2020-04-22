@@ -92,7 +92,7 @@ ktlint {
     enableExperimentalRules.set(true)
 
     reporters {
-        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.JSON)
     }
 
     filter {
