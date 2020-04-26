@@ -15,6 +15,9 @@ plugins {
     kotlin("jvm") version "1.3.61"
     kotlin("plugin.spring") version "1.3.61"
     kotlin("plugin.jpa") version "1.3.61"
+
+    // Coverage tool - https://docs.gradle.org/current/userguide/jacoco_plugin.html
+    jacoco
 }
 
 group = "com.jissay"
@@ -97,5 +100,16 @@ ktlint {
     filter {
         exclude("**/generated/**")
         include("**/kotlin/**")
+    }
+}
+
+/* Jacoco setup */
+/* See : https://medium.com/@arunvelsriram/jacoco-configuration-using-gradles-kotlin-dsl-67a8870b1c68 */
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = true
+        csv.isEnabled = false
+        html.isEnabled = false
+        html.destination = file("$buildDir/reports/$name")
     }
 }

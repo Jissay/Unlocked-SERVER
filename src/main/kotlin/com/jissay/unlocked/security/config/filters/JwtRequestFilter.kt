@@ -19,6 +19,7 @@ class JwtRequestFilter(
     val accountService: AccountService,
     val jwtTokenUtil: JwtTokenUtil
 ) : OncePerRequestFilter() {
+
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
