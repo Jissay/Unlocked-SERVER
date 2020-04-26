@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api")
-class DummyRestController
-{
+class DummyRestController {
+
     @GetMapping("/test")
-    fun testSecurity(): String
-    {
+    fun testSecurity(): String {
         return "Test API Security"
     }
 }

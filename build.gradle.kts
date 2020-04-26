@@ -27,7 +27,6 @@ configurations {
     }
 }
 
-
 dependencies {
 
     val junitVersion = "5.2.0"

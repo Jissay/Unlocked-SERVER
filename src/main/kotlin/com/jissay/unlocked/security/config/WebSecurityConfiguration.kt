@@ -1,8 +1,8 @@
 package com.jissay.unlocked.security.config
 
-
 import com.jissay.unlocked.security.config.filters.JwtRequestFilter
 import com.jissay.unlocked.services.AccountService
+import java.util.ArrayList
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,23 +18,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import java.util.*
-
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class WebSecurityConfiguration(private val accountService: AccountService,
-                               private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint,
-                               private val jwtRequestFilter: JwtRequestFilter)
-    : WebSecurityConfigurerAdapter()
-{
+class WebSecurityConfiguration(
+    private val accountService: AccountService,
+    private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint,
+    private val jwtRequestFilter: JwtRequestFilter
+) : WebSecurityConfigurerAdapter() {
     @Autowired
-    fun configureGlobal(auth: AuthenticationManagerBuilder)
-    {
+    fun configureGlobal(auth: AuthenticationManagerBuilder) {
         // configure AuthenticationManager so that it knows from where to load
         // user for matching credentials
         // Use BCryptPasswordEncoder
@@ -43,36 +39,35 @@ class WebSecurityConfiguration(private val accountService: AccountService,
     }
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder? { return BCryptPasswordEncoder(10) }
+    fun passwordEncoder(): PasswordEncoder? {
+        return BCryptPasswordEncoder(10)
+    }
 
-    override fun configure(httpSecurity: HttpSecurity)
-    {
+    override fun configure(httpSecurity: HttpSecurity) {
         // We don't need CSRF for this example
         // dont authenticate this particular request
         httpSecurity.csrf().disable()
-                // all other requests need to be authenticated
-                .authorizeRequests().antMatchers("/authenticate").permitAll().anyRequest()
-                // make sure we use stateless session; session won't be used to
-                .authenticated().and().exceptionHandling()
-                // store user's state.
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            // all other requests need to be authenticated
+            .authorizeRequests().antMatchers("/authenticate").permitAll().anyRequest()
+            // make sure we use stateless session; session won't be used to
+            .authenticated().and().exceptionHandling()
+            // store user's state.
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter::class.java)
     }
 
     @Bean
-    fun accountAuthenticationManager(): AuthenticationManager?
-    {
+    fun accountAuthenticationManager(): AuthenticationManager? {
         val providers: MutableList<AuthenticationProvider> = ArrayList()
         providers.add(this.authenticationProvider())
         return ProviderManager(providers)
     }
 
     @Bean
-    fun authenticationProvider(): AuthenticationProvider
-    {
+    fun authenticationProvider(): AuthenticationProvider {
         val authenticationProvider = DaoAuthenticationProvider()
         authenticationProvider.setUserDetailsService(this.accountService)
         authenticationProvider.setPasswordEncoder(this.passwordEncoder())

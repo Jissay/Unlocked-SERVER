@@ -1,6 +1,5 @@
 package com.jissay.unlocked.services
 
-import com.jissay.unlocked.entities.AccountTestTools
 import com.jissay.unlocked.repositories.AccountRepository
 import org.junit.Before
 import org.junit.Test
@@ -17,8 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 // https://medium.com/@crsandeep/creating-and-testing-a-kotlin-restful-web-services-using-spring-boot-1a11aeda279e
 @RunWith(MockitoJUnitRunner::class)
 @DataJpaTest
-class AccountServiceTest
-{
+class AccountServiceTest {
     @InjectMocks
     private lateinit var accountService: AccountService
 
@@ -26,18 +24,19 @@ class AccountServiceTest
     private lateinit var accountRepository: AccountRepository // Dependency for AccountService
 
     @Before
-    fun init() { MockitoAnnotations.initMocks(this) }
+    fun init() {
+        MockitoAnnotations.initMocks(this)
+    }
 
     //region Tests
 
     @Test
-    fun `username should not be found`()
-    {
+    fun `username should not be found`() {
         // given
         val fakeUsername = "FakeUserName"
         // when, then
         assertThrows<UsernameNotFoundException> { this.accountService.loadUserByUsername(fakeUsername) }
     }
 
-    //endregion
+    // endregion
 }

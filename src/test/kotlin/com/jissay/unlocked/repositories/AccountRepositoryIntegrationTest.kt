@@ -10,8 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @DataJpaTest
-class AccountRepositoryIntegrationTest
-{
+class AccountRepositoryIntegrationTest {
     @Autowired
     private lateinit var accountRepository: AccountRepository
 
@@ -23,8 +22,7 @@ class AccountRepositoryIntegrationTest
     //region Tests
 
     @Test
-    fun `account should be found and equal`()
-    {
+    fun `account should be found and equal`() {
         // given
         this.testEntityManager.persistAndFlush(this.accountTestTools.account1)
 
@@ -35,5 +33,5 @@ class AccountRepositoryIntegrationTest
         this.accountTestTools.assertAccountsAreEquals(this.accountTestTools.account1, userFound)
     }
 
-    //endregion
+    // endregion
 }

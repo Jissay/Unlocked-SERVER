@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties
-class ULProperties
-{
+class ULProperties {
     @Value("\${unlocked.jwt.privatekey}")
     lateinit var jwtPrivateKey: String
 

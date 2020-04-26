@@ -1,6 +1,5 @@
 package com.jissay.unlocked.constants
 
-enum class ApplicationRoles
-{
+enum class ApplicationRoles {
     ROLE_ACCOUNT
 }
