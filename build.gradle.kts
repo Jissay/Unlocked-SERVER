@@ -94,7 +94,7 @@ ktlint {
     enableExperimentalRules.set(true)
 
     reporters {
-        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.JSON)
+        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.HTML)
     }
 
     filter {
@@ -110,6 +110,5 @@ tasks.jacocoTestReport {
         xml.isEnabled = true
         csv.isEnabled = false
         html.isEnabled = false
-        html.destination = file("$buildDir/reports/$name")
     }
 }
